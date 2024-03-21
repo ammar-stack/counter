@@ -8,41 +8,104 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  var num = 0;
+  var controller1 = TextEditingController();
+  var controller2 = TextEditingController();
+  int answer = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.black,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                num.toString(),
-                style: const TextStyle(
-                    fontSize: 150,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+        backgroundColor: Colors.cyanAccent,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: controller1,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), hintText: 'num 1'),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 33,top: 250),
-                child: IconButton(
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: controller2,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), hintText: 'num 2'),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
                     onPressed: () {
-                      num +=1;
+                      int num1 = int.parse(controller1.text.toString());
+                      int num2 = int.parse(controller2.text.toString());
+                      answer = num1+num2;
                       setState(() {
                         
                       });
                     },
-                    icon:const Icon(
-                      Icons.add_box_rounded,
-                      color: Colors.white,
-                      size: 70,
+                    child: const Text(
+                      '+',
+                      style: TextStyle(fontSize: 25),
                     )),
-              )
-            ],
-          ),
+                ElevatedButton(
+                    onPressed: () {
+                      int num1 = int.parse(controller1.text.toString());
+                      int num2 = int.parse(controller2.text.toString());
+                      answer = num1-num2;
+                      setState(() {
+                        
+                      });
+                    },
+                    child: const Text(
+                      '-',
+                      style: TextStyle(fontSize: 25),
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      int num1 = int.parse(controller1.text.toString());
+                      int num2 = int.parse(controller2.text.toString());
+                      answer = num1*num2;
+                      setState(() {
+                        
+                      });
+                    },
+                    child: const Text(
+                      '*',
+                      style: TextStyle(fontSize: 25),
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      int num1 = int.parse(controller1.text.toString());
+                      int num2 = int.parse(controller2.text.toString());
+                      double answerr = num1/num2;
+                      answer = answerr.toInt();
+                      setState(() {
+                        
+                      });
+                    },
+                    child: const Text(
+                      '/',
+                      style: TextStyle(fontSize: 25),
+                    )),
+                
+              ],
+            ),
+            const SizedBox(height: 50,),
+            const Text('Result',style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
+            const SizedBox(height: 50,),
+            Text(answer.toString(),style:const TextStyle(fontSize: 40,fontWeight: FontWeight.bold),)
+          ],
         ),
       ),
     );
